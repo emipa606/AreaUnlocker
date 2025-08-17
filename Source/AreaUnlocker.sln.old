@@ -1,0 +1,26 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{cec25f84-2c86-432d-817f-cd7f9f09f504}") = "AreaUnlocker", "AreaUnlocker\AreaUnlocker.csproj", "{40e3ab7b-9a1e-44ec-bce2-b67e8360efc9]}"
+EndProject
+Project("{155bc66c-b09c-4d48-aad7-9552fb9ae434}") = "0ColourPicker", "0ColourPicker\0ColourPicker.csproj", "{515ad55f-cb2d-4edf-abb8-b9cb235b66e3]}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40e3ab7b-9a1e-44ec-bce2-b67e8360efc9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40e3ab7b-9a1e-44ec-bce2-b67e8360efc9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40e3ab7b-9a1e-44ec-bce2-b67e8360efc9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40e3ab7b-9a1e-44ec-bce2-b67e8360efc9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {70957d24-a53f-4367-bf12-93662cd38a9a}
+	EndGlobalSection
+EndGlobal

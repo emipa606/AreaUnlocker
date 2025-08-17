@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/.github/">
+    <File Path="../.github/copilot-instructions.md" />
+  </Folder>
+  <Configurations>
+    <BuildType Name="Release" />
+  </Configurations>
+  <Project Path="0ColourPicker/0ColourPicker.csproj" />
+  <Project Path="AreaUnlocker/AreaUnlocker.csproj" />
+</Solution>
