@@ -144,7 +144,25 @@ public class HarmonyPatch_Dialog_ManageAreas
         }
 
         widgetRow.Gap(4f);
-        widgetRow.Label(area.Label, rect.width - ((foundArea ? 6 : 3) * 28f));
+        widgetRow.Label(area.Label, rect.width - ((foundArea ? 8 : 5) * 28f));
+
+        // Let's add simple ButtonText or ButtonIcon directly here for debugging
+        if (widgetRow.ButtonIcon(Icons.Expand, "ExpandArea".Translate()))
+        {
+            Log.Message("AreaUnlocker: Expand clicked for " + area.Label);
+            Designator_AreaAllowedExpand designator = new Designator_AreaAllowedExpand();
+            Traverse.Create(typeof(Designator_AreaAllowed)).Field("selectedArea").SetValue(area);
+            Find.DesignatorManager.Select(designator);
+        }
+
+        if (widgetRow.ButtonIcon(Icons.Clear, "ClearArea".Translate()))
+        {
+            Log.Message("AreaUnlocker: Clear clicked for " + area.Label);
+            Designator_AreaAllowedClear designator = new Designator_AreaAllowedClear();
+            Traverse.Create(typeof(Designator_AreaAllowed)).Field("selectedArea").SetValue(area);
+            Find.DesignatorManager.Select(designator);
+        }
+
         if (foundArea && widgetRow.ButtonIcon(Icons.Rename, "Rename".Translate(), GenUI.MouseoverColor))
         {
             Find.WindowStack.Add(new Dialog_RenameArea(area));

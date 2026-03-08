@@ -18,6 +18,10 @@ public static class Icons
 
     public static readonly Texture2D DragHash;
 
+    public static readonly Texture2D Expand;
+
+    public static readonly Texture2D Clear;
+
     static Icons()
     {
         Rename = ContentFinder<Texture2D>.Get("UI/Buttons/Rename");
@@ -26,5 +30,7 @@ public static class Icons
         Delete = ContentFinder<Texture2D>.Get("UI/Buttons/Delete");
         Copy = ContentFinder<Texture2D>.Get("UI/Buttons/Copy");
         DragHash = ContentFinder<Texture2D>.Get("UI/Icons/drag-handle");
+        Expand = ContentFinder<Texture2D>.Get("UI/Buttons/Plus");
+        Clear = ContentFinder<Texture2D>.Get("UI/Buttons/Minus");
     }
 }
