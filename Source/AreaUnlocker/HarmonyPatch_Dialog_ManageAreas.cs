@@ -11,6 +11,9 @@ namespace AreaUnlocker;
 [HarmonyPatch(typeof(Dialog_ManageAreas), nameof(Dialog_ManageAreas.DoWindowContents))]
 public class HarmonyPatch_Dialog_ManageAreas
 {
+    private static Map lastManagedMap;
+    private static bool shouldReopen = false;
+
     private static float height = 100f;
 
     private static Vector2 scrollposition = Vector2.zero;
@@ -20,6 +23,9 @@ public class HarmonyPatch_Dialog_ManageAreas
     [Obsolete]
     public static bool Prefix(Rect inRect, Map ___map)
     {
+        // Remember which map we are managing
+        lastManagedMap = ___map;
+
         var outRect = new Rect(inRect.xMin, inRect.yMin, inRect.width, inRect.height - 100f);
         var rect = new Rect(inRect.xMin, inRect.yMin, inRect.width - 16f, height);
         var rect2 = new Rect(inRect.xMin, inRect.yMax - 80f, inRect.width, 30f);
@@ -144,7 +150,27 @@ public class HarmonyPatch_Dialog_ManageAreas
         }
 
         widgetRow.Gap(4f);
-        widgetRow.Label(area.Label, rect.width - ((foundArea ? 6 : 3) * 28f));
+        widgetRow.Label(area.Label, rect.width - ((foundArea ? 8 : 5) * 28f));
+
+        // Let's add simple ButtonText or ButtonIcon directly here for debugging
+    if (widgetRow.ButtonIcon(Icons.Expand, "ExpandArea".Translate()))
+    {
+        Designator_AreaAllowedExpand designator = new Designator_AreaAllowedExpand();
+        Traverse.Create(typeof(Designator_AreaAllowed)).Field("selectedArea").SetValue(area);
+        Find.DesignatorManager.Select(designator);
+        shouldReopen = true;
+        Find.WindowStack.TryRemove(typeof(Dialog_ManageAreas));
+    }
+
+    if (widgetRow.ButtonIcon(Icons.Clear, "ClearArea".Translate()))
+    {
+        Designator_AreaAllowedClear designator = new Designator_AreaAllowedClear();
+        Traverse.Create(typeof(Designator_AreaAllowed)).Field("selectedArea").SetValue(area);
+        Find.DesignatorManager.Select(designator);
+        shouldReopen = true;
+        Find.WindowStack.TryRemove(typeof(Dialog_ManageAreas));
+    }
+
         if (foundArea && widgetRow.ButtonIcon(Icons.Rename, "Rename".Translate(), GenUI.MouseoverColor))
         {
             Find.WindowStack.Add(new Dialog_RenameArea(area));
@@ -166,11 +192,24 @@ public class HarmonyPatch_Dialog_ManageAreas
             copy(area);
         }
 
-        if (foundArea && widgetRow.ButtonIcon(Icons.Delete, "Delete".Translate(), GenUI.MouseoverColor))
-        {
-            area.Delete();
-        }
-
-        GUI.EndGroup();
+    if (foundArea && widgetRow.ButtonIcon(Icons.Delete, "Delete".Translate(), GenUI.MouseoverColor))
+    {
+        area.Delete();
     }
+
+    GUI.EndGroup();
+}
+
+[HarmonyPatch(typeof(DesignatorManager), nameof(DesignatorManager.Deselect))]
+public static class HarmonyPatch_DesignatorManager_Deselect
+{
+    public static void Postfix()
+    {
+        if (shouldReopen && lastManagedMap != null)
+        {
+            shouldReopen = false;
+            Find.WindowStack.Add(new Dialog_ManageAreas(lastManagedMap));
+        }
+    }
+}
 }
