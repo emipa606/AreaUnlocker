@@ -2,7 +2,7 @@
 <ModSyncNinjaData>
   <ID>3924fdc0-af7e-437b-86f1-f8156b423a4d</ID>
   <ModName>Area Unlocker (Continued)</ModName>
-  <Version>1.6.1</Version>
+  <Version>1.6.2</Version>
   <SaveBreaking>False</SaveBreaking>
   <Host name="Github">
     <Owner>emipa606</Owner>
@@ -12,8 +12,4 @@
     <Branch>master</Branch>
   </Host>
 </ModSyncNinjaData>
-
-
-
-
 

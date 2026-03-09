@@ -7,11 +7,11 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <DebugType>None</DebugType>
     <LangVersion>latest</LangVersion>
-    <FileVersion>1.6.0</FileVersion>
+    <FileVersion>1.6.2</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.6.4553-beta</Version>
+      <Version>1.6.4752-beta</Version>
       <ExcludeAssets>runtime</ExcludeAssets>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -19,11 +19,11 @@
       <Version>*</Version>
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-	  <ProjectReference Include="..\0ColourPicker\0ColourPicker.csproj">
-		  <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
-		  <CopyLocal>False</CopyLocal>
-		  <Private>false</Private>
-		  <ExcludeAssets>all</ExcludeAssets>
-	  </ProjectReference>
+    <ProjectReference Include="..\0ColourPicker\0ColourPicker.csproj">
+      <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+      <CopyLocal>False</CopyLocal>
+      <Private>false</Private>
+      <ExcludeAssets>all</ExcludeAssets>
+    </ProjectReference>
   </ItemGroup>
 </Project>

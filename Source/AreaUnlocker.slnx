@@ -7,4 +7,7 @@
   </Configurations>
   <Project Path="0ColourPicker/0ColourPicker.csproj" />
   <Project Path="AreaUnlocker/AreaUnlocker.csproj" />
+  <Folder Name="/XML/About/">
+    <File Path="../About/about.xml" />
+  </Folder>
 </Solution>

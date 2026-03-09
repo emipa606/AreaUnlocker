@@ -9,14 +9,14 @@ using Verse;
 namespace AreaUnlocker;
 
 [HarmonyPatch(typeof(Dialog_ManageAreas), nameof(Dialog_ManageAreas.DoWindowContents))]
-public class HarmonyPatch_Dialog_ManageAreas
+public class Dialog_ManageAreas_DoWindowContents
 {
-    private static Map lastManagedMap;
-    private static bool shouldReopen = false;
+    public static Map LastManagedMap;
+    public static bool ShouldReopen;
 
     private static float height = 100f;
 
-    private static Vector2 scrollposition = Vector2.zero;
+    private static Vector2 scrollPosition = Vector2.zero;
 
     private static int reorderableWidgetId = -1;
 
@@ -24,7 +24,7 @@ public class HarmonyPatch_Dialog_ManageAreas
     public static bool Prefix(Rect inRect, Map ___map)
     {
         // Remember which map we are managing
-        lastManagedMap = ___map;
+        LastManagedMap = ___map;
 
         var outRect = new Rect(inRect.xMin, inRect.yMin, inRect.width, inRect.height - 100f);
         var rect = new Rect(inRect.xMin, inRect.yMin, inRect.width - 16f, height);
@@ -32,7 +32,7 @@ public class HarmonyPatch_Dialog_ManageAreas
         var list = (from a in ___map.areaManager.AllAreas.ToList()
             where visible(a)
             select a).ToList();
-        var listing_Standard = new Listing_Standard
+        var listingStandard = new Listing_Standard
         {
             ColumnWidth = rect.width
         };
@@ -47,16 +47,16 @@ public class HarmonyPatch_Dialog_ManageAreas
             }, ReorderableDirection.Vertical, rect);
         }
 
-        Widgets.BeginScrollView(outRect, ref scrollposition, rect);
-        listing_Standard.Begin(rect);
+        Widgets.BeginScrollView(outRect, ref scrollPosition, rect);
+        listingStandard.Begin(rect);
         foreach (var item in list)
         {
-            doAreaRow(listing_Standard.GetRect(24f), item, reorderableWidgetId);
-            listing_Standard.Gap(6f);
+            doAreaRow(listingStandard.GetRect(24f), item, reorderableWidgetId);
+            listingStandard.Gap(6f);
         }
 
         height = list.Count * 30f;
-        listing_Standard.End();
+        listingStandard.End();
         Widgets.EndScrollView();
         if (Widgets.ButtonText(rect2, "NewArea".Translate()))
         {
@@ -119,7 +119,7 @@ public class HarmonyPatch_Dialog_ManageAreas
         }
     }
 
-    private static void doAreaRow(Rect rect, Area area, int reorderableWidgetId)
+    private static void doAreaRow(Rect rect, Area area, int widgetId)
     {
         if (Mouse.IsOver(rect))
         {
@@ -130,7 +130,7 @@ public class HarmonyPatch_Dialog_ManageAreas
         }
 
         GUI.DrawTexture(new Rect(rect.xMin, rect.yMin, 16f, 16f).CenteredOnYIn(rect), Icons.DragHash);
-        ReorderableWidget.Reorderable(reorderableWidgetId, rect);
+        ReorderableWidget.Reorderable(widgetId, rect);
         rect.xMin += 20f;
         GUI.BeginGroup(rect);
         var widgetRow = new WidgetRow(0f, 0f);
@@ -153,23 +153,23 @@ public class HarmonyPatch_Dialog_ManageAreas
         widgetRow.Label(area.Label, rect.width - ((foundArea ? 8 : 5) * 28f));
 
         // Let's add simple ButtonText or ButtonIcon directly here for debugging
-    if (widgetRow.ButtonIcon(Icons.Expand, "ExpandArea".Translate()))
-    {
-        Designator_AreaAllowedExpand designator = new Designator_AreaAllowedExpand();
-        Traverse.Create(typeof(Designator_AreaAllowed)).Field("selectedArea").SetValue(area);
-        Find.DesignatorManager.Select(designator);
-        shouldReopen = true;
-        Find.WindowStack.TryRemove(typeof(Dialog_ManageAreas));
-    }
+        if (widgetRow.ButtonIcon(Icons.Expand, "ExpandArea".Translate()))
+        {
+            var designator = new Designator_AreaAllowedExpand();
+            Traverse.Create(typeof(Designator_AreaAllowed)).Field("selectedArea").SetValue(area);
+            Find.DesignatorManager.Select(designator);
+            ShouldReopen = true;
+            Find.WindowStack.TryRemove(typeof(Dialog_ManageAreas));
+        }
 
-    if (widgetRow.ButtonIcon(Icons.Clear, "ClearArea".Translate()))
-    {
-        Designator_AreaAllowedClear designator = new Designator_AreaAllowedClear();
-        Traverse.Create(typeof(Designator_AreaAllowed)).Field("selectedArea").SetValue(area);
-        Find.DesignatorManager.Select(designator);
-        shouldReopen = true;
-        Find.WindowStack.TryRemove(typeof(Dialog_ManageAreas));
-    }
+        if (widgetRow.ButtonIcon(Icons.Clear, "ClearArea".Translate()))
+        {
+            var designator = new Designator_AreaAllowedClear();
+            Traverse.Create(typeof(Designator_AreaAllowed)).Field("selectedArea").SetValue(area);
+            Find.DesignatorManager.Select(designator);
+            ShouldReopen = true;
+            Find.WindowStack.TryRemove(typeof(Dialog_ManageAreas));
+        }
 
         if (foundArea && widgetRow.ButtonIcon(Icons.Rename, "Rename".Translate(), GenUI.MouseoverColor))
         {
@@ -192,24 +192,11 @@ public class HarmonyPatch_Dialog_ManageAreas
             copy(area);
         }
 
-    if (foundArea && widgetRow.ButtonIcon(Icons.Delete, "Delete".Translate(), GenUI.MouseoverColor))
-    {
-        area.Delete();
-    }
-
-    GUI.EndGroup();
-}
-
-[HarmonyPatch(typeof(DesignatorManager), nameof(DesignatorManager.Deselect))]
-public static class HarmonyPatch_DesignatorManager_Deselect
-{
-    public static void Postfix()
-    {
-        if (shouldReopen && lastManagedMap != null)
+        if (foundArea && widgetRow.ButtonIcon(Icons.Delete, "Delete".Translate(), GenUI.MouseoverColor))
         {
-            shouldReopen = false;
-            Find.WindowStack.Add(new Dialog_ManageAreas(lastManagedMap));
+            area.Delete();
         }
+
+        GUI.EndGroup();
     }
-}
 }
