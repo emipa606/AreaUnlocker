@@ -12,6 +12,7 @@
     <li>1.4</li>
     <li>1.5</li>
     <li>1.6</li>
+    <li>1.7</li>
   </supportedVersions>
   <modDependencies>
     <li>
@@ -29,6 +30,8 @@ Update of Fluffys mod https://steamcommunity.com/sharedfiles/filedetails/?id=725
 with the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3309976104]reordering fix[/url] by lisanhu included
 
 Not needed if using TD Enhancement Pack
+
+- Added expand/contract area buttons, thanks to philiplamscript
 
 [img]https://img.litet.net/logos/Notice.png[/img]
 
@@ -77,6 +80,6 @@ Parts of this mod were created by, or derived from works created by;
 [*] Use [url=https://github.com/RimSort/RimSort/releases/latest]RimSort[/url] to sort your mods
 [/list] 
 
-[url=https://steamcommunity.com/sharedfiles/filedetails/changelog/3550817577][img]https://img.shields.io/github/v/release/emipa606/AreaUnlocker?label=latest%20version&amp;style=plastic&amp;color=9f1111&amp;labelColor=black[/img][/url] | tags: unlimited areas</description>
-  <modVersion IgnoreIfNoMatchingField="True">1.6.2</modVersion>
+[url=https://steamcommunity.com/sharedfiles/filedetails/changelog/3550817577][img]https://img.shields.io/github/v/release/emipa606/AreaUnlocker?label=latest%20version&amp;style=plastic&amp;color=9f1111&amp;labelColor=black[/img][/url] | unlimited areas</description>
+  <modVersion IgnoreIfNoMatchingField="True">1.7.0</modVersion>
 </ModMetaData>

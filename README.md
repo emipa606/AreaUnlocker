@@ -7,6 +7,8 @@ with the [reordering fix](https://steamcommunity.com/sharedfiles/filedetails/?id
 
 Not needed if using TD Enhancement Pack
 
+- Added expand/contract area buttons, thanks to philiplamscript
+
 ![Image](https://img.litet.net/logos/Notice.png)
 	
 ![Image](https://img.litet.net/logos/OriginalDescription.png)
@@ -51,4 +53,4 @@ Parts of this mod were created by, or derived from works created by;
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/AreaUnlocker?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3550817577) | tags: unlimited areas
+[![Image](https://img.shields.io/github/v/release/emipa606/AreaUnlocker?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3550817577) | unlimited areas

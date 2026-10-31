@@ -9,7 +9,7 @@ using Verse;
 namespace AreaUnlocker;
 
 [HarmonyPatch(typeof(Dialog_ManageAreas), nameof(Dialog_ManageAreas.DoWindowContents))]
-public class Dialog_ManageAreas_DoWindowContents
+public static class Dialog_ManageAreas_DoWindowContents
 {
     public static Map LastManagedMap;
     public static bool ShouldReopen;
@@ -138,7 +138,7 @@ public class Dialog_ManageAreas_DoWindowContents
         var foundArea = areaAllowed != null;
         if (foundArea)
         {
-            if (widgetRow.ButtonIcon(areaAllowed.ColorTexture, "Fluffy.AreaUnlocker.ChangeColour".Translate(),
+            if (widgetRow.ButtonIcon(areaAllowed?.ColorTexture, "Fluffy.AreaUnlocker.ChangeColour".Translate(),
                     GenUI.SubtleMouseoverColor))
             {
                 changeColour(areaAllowed);

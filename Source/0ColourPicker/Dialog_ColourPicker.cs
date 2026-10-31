@@ -13,9 +13,20 @@ namespace ColourPicker;
 
 public class Dialog_ColourPicker : Window
 {
+    private readonly TextField<string> HexField;
+
+    private readonly TextField<float> RedField,
+        GreenField,
+        BlueField,
+        HueField,
+        SaturationField,
+        ValueField,
+        Alpha1Field,
+        Alpha2Field;
+
     private readonly Color _alphaBGColorA = Color.white;
 
-    private readonly Color _alphaBGColorB = new Color(.85f, .85f, .85f);
+    private readonly Color _alphaBGColorB = new(.85f, .85f, .85f);
     private readonly float _buttonHeight = 30f;
 
     private readonly Action<Color> _callback;
@@ -32,20 +43,10 @@ public class Dialog_ColourPicker : Window
         _handleSize = 10,
         _recentSize = 20;
 
-    private readonly RecentColours _recentColours = new RecentColours();
+    private readonly RecentColours _recentColours = new();
 
     private readonly bool autoApply = false;
-    private readonly TextField<string> HexField;
     private readonly bool minimalistic = false;
-
-    private readonly TextField<float> RedField,
-        GreenField,
-        BlueField,
-        HueField,
-        SaturationField,
-        ValueField,
-        Alpha1Field,
-        Alpha2Field;
 
     private readonly List<string> textFieldIds;
     private controls _activeControl = controls.none;
@@ -211,7 +212,7 @@ public class Dialog_ColourPicker : Window
 
     public override Vector2 InitialSize =>
         // calculate window size to accomodate all elements
-        new Vector2(_pickerSize + (3 * _margin) + (2 * _sliderWidth) + (2 * _previewSize) + (StandardMargin * 2),
+        new(_pickerSize + (3 * _margin) + (2 * _sliderWidth) + (2 * _previewSize) + (StandardMargin * 2),
             _pickerSize + (StandardMargin * 2));
 
     private Texture2D PickerAlphaBG
@@ -511,7 +512,6 @@ public class Dialog_ColourPicker : Window
         DrawRecent(recentRect);
 
         // draw slider handles
-        // TODO: get HSV from RGB for init of handles.
         var hueHandleRect = new Rect(hueRect.xMin - 3f, hueRect.yMin + _huePosition - (_handleSize / 2f),
             _sliderWidth + 6f, _handleSize);
         var alphaHandleRect = new Rect(alphaRect.xMin - 3f, alphaRect.yMin + _alphaPosition - (_handleSize / 2f),
